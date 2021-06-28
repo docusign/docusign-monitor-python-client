@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    DocuSign Monitor API - v2
+    Monitor API
 
-    An API for an integrator to access the features of DocuSign Monitor  # noqa: E501
+    Use the DocuSign Monitor API to receive a data feed containing atypical security events within your DocuSign account. This data goes directly to an integrated application or website.  # noqa: E501
 
     OpenAPI spec version: v2.0
     Contact: devcenter@docusign.com
@@ -13,7 +13,7 @@
 from setuptools import setup, find_packages, Command, os  # noqa: H301
 
 NAME = "docusign-monitor"
-VERSION = "1.0.0b0"
+VERSION = "1.0.0"
 # To install the library, run the following
 #
 # python setup.py install
@@ -46,10 +46,10 @@ with open(os.path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name=NAME,
     version=VERSION,
-    description="DocuSign Monitor API - v2",
+    description="Monitor API",
     author_email="devcenter@docusign.com",
     url="",
-    keywords=["Swagger", "DocuSign Monitor API - v2"],
+    keywords=["Swagger", "Monitor API"],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,

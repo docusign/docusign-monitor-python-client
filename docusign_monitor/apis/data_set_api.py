@@ -3,7 +3,7 @@
 """
     Monitor API
 
-    Use the DocuSign Monitor API to receive a data feed containing atypical security events within your DocuSign account. This data goes directly to an integrated application or website.  # noqa: E501
+    An API for an integrator to access the features of DocuSign Monitor  # noqa: E501
 
     OpenAPI spec version: v2.0
     Contact: devcenter@docusign.com
@@ -155,6 +155,127 @@ class DataSetApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='CursoredResult',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def post_web_query(self, data_set_name, version, web_query, **kwargs):
+        """
+        
+        Allows for querying existing data using filter and aggregation clauses  Required scopes: impersonation
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.post_web_query(data_set_name, version, web_query, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str data_set_name: The name of the dataset to query (required)
+        :param str version: The requested API version (required)
+        :param WebQuery web_query: A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
+        :return: AggregateResult
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.post_web_query_with_http_info(data_set_name, version, web_query, **kwargs)
+        else:
+            (data) = self.post_web_query_with_http_info(data_set_name, version, web_query, **kwargs)
+            return data
+
+    def post_web_query_with_http_info(self, data_set_name, version, web_query, **kwargs):
+        """
+        
+        Allows for querying existing data using filter and aggregation clauses  Required scopes: impersonation
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.post_web_query_with_http_info(data_set_name, version, web_query, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str data_set_name: The name of the dataset to query (required)
+        :param str version: The requested API version (required)
+        :param WebQuery web_query: A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
+        :return: AggregateResult
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['data_set_name', 'version', 'web_query']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method post_web_query" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'data_set_name' is set
+        if ('data_set_name' not in params) or (params['data_set_name'] is None):
+            raise ValueError("Missing the required parameter `data_set_name` when calling `post_web_query`")
+        # verify the required parameter 'version' is set
+        if ('version' not in params) or (params['version'] is None):
+            raise ValueError("Missing the required parameter `version` when calling `post_web_query`")
+        # verify the required parameter 'web_query' is set
+        if ('web_query' not in params) or (params['web_query'] is None):
+            raise ValueError("Missing the required parameter `web_query` when calling `post_web_query`")
+
+
+        collection_formats = {}
+
+        resource_path = '/api/v{version}/datasets/{dataSetName}/web_query'.replace('{format}', 'json')
+        path_params = {}
+        if 'data_set_name' in params:
+            path_params['dataSetName'] = params['data_set_name']
+        if 'version' in params:
+            path_params['version'] = params['version']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'web_query' in params:
+            body_params = params['web_query']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = []
+
+        return self.api_client.call_api(resource_path, 'POST',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='AggregateResult',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

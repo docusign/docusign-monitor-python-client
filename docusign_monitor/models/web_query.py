@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-    DocuSign Monitor API - v2
+    Monitor API
 
     An API for an integrator to access the features of DocuSign Monitor  # noqa: E501
 
@@ -15,6 +15,8 @@ import pprint
 import re  # noqa: F401
 
 import six
+
+from docusign_monitor.client.configuration import Configuration
 
 
 class WebQuery(object):
@@ -31,8 +33,8 @@ class WebQuery(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'filters': 'list[Filter]',
-        'aggregations': 'list[Aggregation]',
+        'filters': 'list[object]',
+        'aggregations': 'list[object]',
         'query_scope': 'str',
         'query_scope_id': 'str'
     }
@@ -44,8 +46,11 @@ class WebQuery(object):
         'query_scope_id': 'queryScopeId'
     }
 
-    def __init__(self, filters=None, aggregations=None, query_scope=None, query_scope_id=None):  # noqa: E501
+    def __init__(self, _configuration=None, **kwargs):  # noqa: E501
         """WebQuery - a model defined in Swagger"""  # noqa: E501
+        if _configuration is None:
+            _configuration = Configuration()
+        self._configuration = _configuration
 
         self._filters = None
         self._aggregations = None
@@ -53,14 +58,10 @@ class WebQuery(object):
         self._query_scope_id = None
         self.discriminator = None
 
-        if filters is not None:
-            self.filters = filters
-        if aggregations is not None:
-            self.aggregations = aggregations
-        if query_scope is not None:
-            self.query_scope = query_scope
-        if query_scope_id is not None:
-            self.query_scope_id = query_scope_id
+        setattr(self, "_{}".format('filters'), kwargs.get('filters', None))
+        setattr(self, "_{}".format('aggregations'), kwargs.get('aggregations', None))
+        setattr(self, "_{}".format('query_scope'), kwargs.get('query_scope', None))
+        setattr(self, "_{}".format('query_scope_id'), kwargs.get('query_scope_id', None))
 
     @property
     def filters(self):
@@ -68,7 +69,7 @@ class WebQuery(object):
 
 
         :return: The filters of this WebQuery.  # noqa: E501
-        :rtype: list[Filter]
+        :rtype: list[object]
         """
         return self._filters
 
@@ -78,7 +79,7 @@ class WebQuery(object):
 
 
         :param filters: The filters of this WebQuery.  # noqa: E501
-        :type: list[Filter]
+        :type: list[object]
         """
 
         self._filters = filters
@@ -89,7 +90,7 @@ class WebQuery(object):
 
 
         :return: The aggregations of this WebQuery.  # noqa: E501
-        :rtype: list[Aggregation]
+        :rtype: list[object]
         """
         return self._aggregations
 
@@ -99,7 +100,7 @@ class WebQuery(object):
 
 
         :param aggregations: The aggregations of this WebQuery.  # noqa: E501
-        :type: list[Aggregation]
+        :type: list[object]
         """
 
         self._aggregations = aggregations
@@ -122,8 +123,9 @@ class WebQuery(object):
         :param query_scope: The query_scope of this WebQuery.  # noqa: E501
         :type: str
         """
-        allowed_values = ["AccountId", "OrganizationId", "None"]  # noqa: E501
-        if query_scope not in allowed_values:
+        allowed_values = ["OrganizationId"]  # noqa: E501
+        if (self._configuration.client_side_validation and
+                query_scope not in allowed_values):
             raise ValueError(
                 "Invalid value for `query_scope` ({0}), must be one of {1}"  # noqa: E501
                 .format(query_scope, allowed_values)
@@ -192,8 +194,11 @@ class WebQuery(object):
         if not isinstance(other, WebQuery):
             return False
 
-        return self.__dict__ == other.__dict__
+        return self.to_dict() == other.to_dict()
 
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
-        return not self == other
+        if not isinstance(other, WebQuery):
+            return True
+
+        return self.to_dict() != other.to_dict()

@@ -5,7 +5,7 @@
 """
     Monitor API
 
-    Use the DocuSign Monitor API to receive a data feed containing atypical security events within your DocuSign account. This data goes directly to an integrated application or website.  # noqa: E501
+    An API for an integrator to access the features of DocuSign Monitor  # noqa: E501
 
     OpenAPI spec version: v2.0
     Contact: devcenter@docusign.com
@@ -19,10 +19,21 @@ from __future__ import absolute_import
 from .apis.data_set_api import DataSetApi
 
 # import ApiClient
-from docusign_monitor.client.api_client import ApiClient
-from docusign_monitor.client.configuration import Configuration
-from docusign_monitor.client.api_exception import ApiException
+from .client.api_client import ApiClient
+from .client.configuration import Configuration
+from .client.api_exception import ApiException
+
+from .client.auth.oauth import OAuth	
+from .client.auth.oauth import OAuthToken	
+from .client.auth.oauth import Account	
+from .client.auth.oauth import Organization	
+from .client.auth.oauth import Link
+
 # import models into sdk package
+from docusign_monitor.models.aggregate_result import AggregateResult
+from docusign_monitor.models.aggregate_result_result import AggregateResultResult
 from docusign_monitor.models.cursored_result import CursoredResult
+from docusign_monitor.models.web_query import WebQuery
+
 
 configuration = Configuration()

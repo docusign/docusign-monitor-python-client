@@ -30,10 +30,8 @@ from .client.auth.oauth import Organization
 from .client.auth.oauth import Link
 
 # import models into sdk package
-from docusign_monitor.models.aggregate_result import AggregateResult
-from docusign_monitor.models.aggregate_result_result import AggregateResultResult
 from docusign_monitor.models.cursored_result import CursoredResult
-from docusign_monitor.models.web_query import WebQuery
+from docusign_monitor.models.data_set import DataSet
 
 
 configuration = Configuration()

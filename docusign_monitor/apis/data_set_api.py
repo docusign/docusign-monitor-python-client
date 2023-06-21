@@ -42,8 +42,8 @@ class DataSetApi(object):
 
     def get_stream(self, data_set_name, version, **kwargs):
         """
-        
-        Allows for the streaming of data as it becomes available  Required scopes: impersonation
+        Gets customer event data for an organization.
+        Gets customer event data for the organization that owns the integration key.  The results for this endpoint are paginated by event timestamp. Use the `cursor` parameter to specify where the query begins in the dataset. Use the `limit` parameter to set the number of records returned. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -54,10 +54,10 @@ class DataSetApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str data_set_name: The name of the dataset to stream (required)
-        :param str version: The requested API version (required)
-        :param str cursor: The cursor value to continue querying the data with. For an intial call, use empty string
-        :param int limit: The maximum number of records to return, minimum of 1, maximum of 2000. Defaults to 1000 if no value is provided
+        :param str data_set_name: Must be `monitor`. (required)
+        :param str version: Must be `2`.  (required)
+        :param str cursor: Specifies a pointer into the dataset where your query will begin. You can either provide an ISO DateTime or a string cursor (from the `endCursor` value in the response). If no value is provided, the query begins from seven days ago.  For example, to fetch event data beginning from January 1, 2022, set this value to `2022-01-01T00:00:00Z`. The response will include data about events starting from that date in chronological order. The response also includes an `endCursor` property. To fetch the next page of event data, call this endpoint again with `cursor` set to the previous `endCursor` value. 
+        :param int limit: The maximum number of records to return. The default value is 1000.
         :return: CursoredResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -71,8 +71,8 @@ class DataSetApi(object):
 
     def get_stream_with_http_info(self, data_set_name, version, **kwargs):
         """
-        
-        Allows for the streaming of data as it becomes available  Required scopes: impersonation
+        Gets customer event data for an organization.
+        Gets customer event data for the organization that owns the integration key.  The results for this endpoint are paginated by event timestamp. Use the `cursor` parameter to specify where the query begins in the dataset. Use the `limit` parameter to set the number of records returned. 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -83,10 +83,10 @@ class DataSetApi(object):
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str data_set_name: The name of the dataset to stream (required)
-        :param str version: The requested API version (required)
-        :param str cursor: The cursor value to continue querying the data with. For an intial call, use empty string
-        :param int limit: The maximum number of records to return, minimum of 1, maximum of 2000. Defaults to 1000 if no value is provided
+        :param str data_set_name: Must be `monitor`. (required)
+        :param str version: Must be `2`.  (required)
+        :param str cursor: Specifies a pointer into the dataset where your query will begin. You can either provide an ISO DateTime or a string cursor (from the `endCursor` value in the response). If no value is provided, the query begins from seven days ago.  For example, to fetch event data beginning from January 1, 2022, set this value to `2022-01-01T00:00:00Z`. The response will include data about events starting from that date in chronological order. The response also includes an `endCursor` property. To fetch the next page of event data, call this endpoint again with `cursor` set to the previous `endCursor` value. 
+        :param int limit: The maximum number of records to return. The default value is 1000.
         :return: CursoredResult
                  If the method is called asynchronously,
                  returns the request thread.
@@ -155,127 +155,6 @@ class DataSetApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='CursoredResult',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def post_web_query(self, data_set_name, version, web_query, **kwargs):
-        """
-        
-        Allows for querying existing data using filter and aggregation clauses  Required scopes: impersonation
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.post_web_query(data_set_name, version, web_query, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str data_set_name: The name of the dataset to query (required)
-        :param str version: The requested API version (required)
-        :param WebQuery web_query: A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
-        :return: AggregateResult
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.post_web_query_with_http_info(data_set_name, version, web_query, **kwargs)
-        else:
-            (data) = self.post_web_query_with_http_info(data_set_name, version, web_query, **kwargs)
-            return data
-
-    def post_web_query_with_http_info(self, data_set_name, version, web_query, **kwargs):
-        """
-        
-        Allows for querying existing data using filter and aggregation clauses  Required scopes: impersonation
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.post_web_query_with_http_info(data_set_name, version, web_query, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str data_set_name: The name of the dataset to query (required)
-        :param str version: The requested API version (required)
-        :param WebQuery web_query: A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
-        :return: AggregateResult
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['data_set_name', 'version', 'web_query']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_web_query" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'data_set_name' is set
-        if ('data_set_name' not in params) or (params['data_set_name'] is None):
-            raise ValueError("Missing the required parameter `data_set_name` when calling `post_web_query`")
-        # verify the required parameter 'version' is set
-        if ('version' not in params) or (params['version'] is None):
-            raise ValueError("Missing the required parameter `version` when calling `post_web_query`")
-        # verify the required parameter 'web_query' is set
-        if ('web_query' not in params) or (params['web_query'] is None):
-            raise ValueError("Missing the required parameter `web_query` when calling `post_web_query`")
-
-
-        collection_formats = {}
-
-        resource_path = '/api/v{version}/datasets/{dataSetName}/web_query'.replace('{format}', 'json')
-        path_params = {}
-        if 'data_set_name' in params:
-            path_params['dataSetName'] = params['data_set_name']
-        if 'version' in params:
-            path_params['version'] = params['version']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'web_query' in params:
-            body_params = params['web_query']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = []
-
-        return self.api_client.call_api(resource_path, 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='AggregateResult',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),

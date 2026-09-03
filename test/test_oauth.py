@@ -3,11 +3,11 @@
 # flake8: noqa
 
 """
-    DocuSign Monitor API - v2
+    DocuSign Monitor API - v3
 
-    An API for an integrator to access the features of DocuSign Monitor  # noqa: E501
+    An API for an integrator to access the features of Docusign Monitor  # noqa: E501
 
-    OpenAPI spec version: v2
+    OpenAPI spec version: v3.0
     Contact: devcenter@docusign.com
 """
 
@@ -27,7 +27,7 @@ class TestConfig(object):
         self.user_name = user_name if user_name else os.environ.get("USER_NAME")
         self.client_secret = client_secret if client_secret else os.environ.get("CLIENT_SECRET")
         self.integrator_key = integrator_key if integrator_key else os.environ.get("INTEGRATOR_KEY_JWT")
-        self.host = host if host else "https://demo.docusign.net/monitorapi"
+        self.host = host if host else "https://api-d.docusign.com"
         self.recipient_email = recipient_email if recipient_email else os.environ.get("USER_NAME")
         self.recipient_name = recipient_name if recipient_name else os.environ.get("USER_NAME")
         self.template_role_name = template_role_name if template_role_name else os.environ.get("USER_NAME")
@@ -47,7 +47,7 @@ class TestOauth(unittest.TestCase):
     def setUp(self):
         self.test_config = TestConfig()
         self.api_client = ApiClient(oauth_host_name=self.test_config.oauth_host_name)
-        self.api_client.set_base_path("https://demo.monitor.docusign.com")
+        self.api_client.set_base_path("https://api-d.docusign.com")
         self.api_client.set_oauth_host_name(self.test_config.oauth_host_name)
 
     def test_oauth_uri(self):

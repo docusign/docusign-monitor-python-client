@@ -24,27 +24,13 @@
 # Swagger and Git files
 .swagger-codegen-ignore
 git_push.sh
-.gitignore
 README.md
 CHANGELOG.md
-best_practices.md
-
 
 # Project files
-LICENSE
 .travis.yml
-requirements.txt
-test-requirements.txt
 setup.cfg
-#setup.py
-
 
 # Specific src and test files
-tox.ini
 docs/
 test/
-docusign_monitor/client/
-#docusign_rooms/__init__.py
-docusign_monitor/api_client.py
-docusign_monitor/configuration.py
-docusign_monitor/rest.py
